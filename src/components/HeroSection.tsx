@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Shield, Clock, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import heroBg from "@/assets/hero-bg.jpg";
 
 const HeroSection = () => {
   const features = [
@@ -14,19 +15,14 @@ const HeroSection = () => {
       id="home"
       className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden"
     >
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-5">
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage: `radial-gradient(circle at 2px 2px, hsl(var(--foreground)) 1px, transparent 0)`,
-            backgroundSize: "40px 40px",
-          }}
-        />
-      </div>
-
+      {/* Background Image */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-40"
+        style={{ backgroundImage: `url(${heroBg})` }}
+      />
+      
       {/* Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-background/95 to-kyra-maroon-dark/30" />
+      <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/40 to-background" />
 
       <div className="kyra-container relative z-10">
         <div className="max-w-4xl mx-auto text-center">
@@ -109,7 +105,7 @@ const HeroSection = () => {
       </div>
 
       {/* Decorative Elements */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-kyra-maroon-dark/50 to-transparent" />
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent" />
     </section>
   );
 };
