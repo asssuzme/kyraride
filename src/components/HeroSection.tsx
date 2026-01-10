@@ -1,13 +1,13 @@
 import { motion } from "framer-motion";
-import { Shield, Clock, Heart } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Shield, Calendar, Heart } from "lucide-react";
+import kyraLogo from "@/assets/kyra-logo.png";
 import heroBg from "@/assets/hero-bg.jpg";
 
 const HeroSection = () => {
   const features = [
     { icon: Shield, text: "Women-Only Drivers" },
-    { icon: Clock, text: "24/7 Support" },
-    { icon: Heart, text: "Safe & Trusted" },
+    { icon: Calendar, text: "Weekly Subscription" },
+    { icon: Heart, text: "Unlimited Rides" },
   ];
 
   return (
@@ -17,7 +17,7 @@ const HeroSection = () => {
     >
       {/* Background Image */}
       <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-40"
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-30"
         style={{ backgroundImage: `url(${heroBg})` }}
       />
       
@@ -26,11 +26,21 @@ const HeroSection = () => {
 
       <div className="kyra-container relative z-10">
         <div className="max-w-4xl mx-auto text-center">
+          {/* Logo */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6 }}
+            className="mb-8"
+          >
+            <img src={kyraLogo} alt="Kyra" className="h-16 md:h-20 mx-auto" />
+          </motion.div>
+
           {/* Badge */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-card/50 backdrop-blur-sm border border-border/50 mb-8"
           >
             <span className="w-2 h-2 rounded-full bg-accent animate-pulse-soft" />
@@ -44,11 +54,10 @@ const HeroSection = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold leading-tight mb-6 text-foreground"
+            className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold leading-tight mb-6 text-foreground"
           >
-            First Women Driven{" "}
-            <span className="text-gradient">Auto Service</span> for Bangalore
-            Women.
+            Kyra: Bengaluru's{" "}
+            <span className="text-gradient">Women-Only</span> Weekly Mobility Subscription
           </motion.h1>
 
           {/* Subheadline */}
@@ -58,36 +67,15 @@ const HeroSection = () => {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10"
           >
-            Experience safe, reliable, and comfortable auto rides with verified
-            women drivers. Your safety is our priority.
+            Safe, predictable commutes. Unlimited rides. One weekly price.
           </motion.p>
-
-          {/* CTA Button */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-          >
-            <Button variant="hero" size="xl" className="group" asChild>
-              <a href="#booking">
-                Book a Ride
-                <motion.span
-                  className="ml-2"
-                  animate={{ x: [0, 4, 0] }}
-                  transition={{ duration: 1.5, repeat: Infinity }}
-                >
-                  →
-                </motion.span>
-              </a>
-            </Button>
-          </motion.div>
 
           {/* Feature Pills */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.8 }}
-            className="flex flex-wrap justify-center gap-4 mt-12"
+            transition={{ duration: 0.8, delay: 0.6 }}
+            className="flex flex-wrap justify-center gap-4"
           >
             {features.map((feature, index) => (
               <div

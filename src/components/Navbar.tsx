@@ -5,13 +5,16 @@ import { Menu, X } from "lucide-react";
 import kyraLogo from "@/assets/kyra-logo.png";
 import { Button } from "@/components/ui/button";
 
+// WhatsApp link - update this with your actual WhatsApp link
+const WHATSAPP_LINK = "https://wa.me/919876543210?text=Hi%20Kyra!%20I'm%20interested%20in%20the%20weekly%20subscription.";
+
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const navLinks = [
     { href: "#home", label: "Home" },
     { href: "#about", label: "About" },
-    { href: "#booking", label: "Book Ride" },
+    { href: "#subscribe", label: "Subscribe" },
     { href: "#contact", label: "Contact" },
   ];
 
@@ -40,7 +43,9 @@ const Navbar = () => {
           {/* Desktop CTA */}
           <div className="hidden md:block">
             <Button variant="hero" size="lg" asChild>
-              <a href="#booking">Book a Ride</a>
+              <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">
+                Subscribe Now
+              </a>
             </Button>
           </div>
 
@@ -76,8 +81,13 @@ const Navbar = () => {
                 </a>
               ))}
               <Button variant="hero" size="lg" className="mt-2" asChild>
-                <a href="#booking" onClick={() => setIsOpen(false)}>
-                  Book a Ride
+                <a 
+                  href={WHATSAPP_LINK} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  onClick={() => setIsOpen(false)}
+                >
+                  Subscribe Now
                 </a>
               </Button>
             </div>

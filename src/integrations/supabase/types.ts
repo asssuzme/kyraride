@@ -14,54 +14,7 @@ export type Database = {
   }
   public: {
     Tables: {
-      bookings: {
-        Row: {
-          created_at: string
-          distance_km: number
-          drop_address: string
-          drop_link: string
-          fare: number
-          id: string
-          phone: string
-          pickup_address: string
-          pickup_link: string
-          pickup_time: string
-          status: string
-          updated_at: string
-          user_name: string
-        }
-        Insert: {
-          created_at?: string
-          distance_km: number
-          drop_address: string
-          drop_link: string
-          fare: number
-          id?: string
-          phone: string
-          pickup_address: string
-          pickup_link: string
-          pickup_time: string
-          status?: string
-          updated_at?: string
-          user_name: string
-        }
-        Update: {
-          created_at?: string
-          distance_km?: number
-          drop_address?: string
-          drop_link?: string
-          fare?: number
-          id?: string
-          phone?: string
-          pickup_address?: string
-          pickup_link?: string
-          pickup_time?: string
-          status?: string
-          updated_at?: string
-          user_name?: string
-        }
-        Relationships: []
-      }
+      [_ in never]: never
     }
     Views: {
       [_ in never]: never
