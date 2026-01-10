@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ShieldCheck, Users, MapPin, Clock } from "lucide-react";
+import { ShieldCheck, Users, MapPin, Calendar } from "lucide-react";
 
 const features = [
   {
@@ -16,15 +16,15 @@ const features = [
   },
   {
     icon: MapPin,
-    title: "Bangalore Coverage",
+    title: "Bengaluru Coverage",
     description:
-      "Extensive network covering all major areas of Bangalore for your convenience.",
+      "Extensive network covering all major areas of Bengaluru for your convenience.",
   },
   {
-    icon: Clock,
-    title: "24/7 Availability",
+    icon: Calendar,
+    title: "Weekly Subscription",
     description:
-      "Round-the-clock service ensuring you have a safe ride whenever you need it.",
+      "One simple weekly price for unlimited rides. No surge pricing, no surprises.",
   },
 ];
 
