@@ -4,8 +4,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import kyraLogo from "@/assets/kyra-logo-dark.png";
 
-const WHATSAPP_LINK = "https://wa.me/message/PWIMWJHRYGQRL1";
-
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -47,14 +45,12 @@ const Navbar = () => {
                 {link.label}
               </a>
             ))}
-            <a
-              href={WHATSAPP_LINK}
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              to="/subscribe"
               className="px-6 py-2.5 bg-[hsl(32,35%,87%)] text-[hsl(351,55%,12%)] font-semibold rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_rgba(232,216,196,0.4)]"
             >
               Reserve Now
-            </a>
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -88,15 +84,13 @@ const Navbar = () => {
                   {link.label}
                 </a>
               ))}
-              <a 
-                href={WHATSAPP_LINK} 
-                target="_blank" 
-                rel="noopener noreferrer"
+              <Link
+                to="/subscribe"
                 onClick={() => setIsOpen(false)}
                 className="mt-4 text-center px-6 py-3 bg-[hsl(32,35%,87%)] text-[hsl(351,55%,12%)] font-semibold rounded-lg hover:shadow-[0_0_20px_rgba(232,216,196,0.4)]"
               >
                 Reserve Now
-              </a>
+              </Link>
             </div>
           </motion.div>
         )}
