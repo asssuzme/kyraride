@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Globe } from "lucide-react";
 import kyraLogo from "@/assets/kyra-logo.png";
 import { Button } from "@/components/ui/button";
 
@@ -11,14 +11,13 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const navLinks = [
-    { href: "#home", label: "Home" },
     { href: "#about", label: "About" },
     { href: "#subscribe", label: "Subscribe" },
     { href: "#contact", label: "Contact" },
   ];
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-background/80 border-b border-border/30">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-background border-b border-border/20">
       <div className="kyra-container">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
@@ -26,7 +25,7 @@ const Navbar = () => {
             <img src={kyraLogo} alt="Kyra" className="h-8 md:h-10" />
           </Link>
 
-          {/* Desktop Navigation */}
+          {/* Desktop Navigation - Center */}
           <div className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
               <a
@@ -39,11 +38,21 @@ const Navbar = () => {
             ))}
           </div>
 
-          {/* Desktop CTA */}
-          <div className="hidden md:block">
-            <Button variant="hero" size="lg" asChild>
+          {/* Desktop Right Side */}
+          <div className="hidden md:flex items-center gap-4">
+            <button className="flex items-center gap-1.5 text-foreground/80 hover:text-foreground transition-colors">
+              <Globe className="w-4 h-4" />
+              <span className="text-sm font-medium">EN</span>
+            </button>
+            <a
+              href="#about"
+              className="text-foreground/80 hover:text-foreground transition-colors font-medium"
+            >
+              Help
+            </a>
+            <Button variant="hero" size="default" asChild>
               <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">
-                Subscribe Now
+                Subscribe
               </a>
             </Button>
           </div>
@@ -66,7 +75,7 @@ const Navbar = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-background/95 backdrop-blur-lg border-b border-border/30"
+            className="md:hidden bg-background border-b border-border/20"
           >
             <div className="kyra-container py-4 flex flex-col gap-4">
               {navLinks.map((link) => (
