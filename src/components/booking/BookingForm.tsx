@@ -18,12 +18,14 @@ import {
 import { PlacesAutocomplete } from "./PlacesAutocomplete";
 import { DaySelector } from "./DaySelector";
 import { FareBreakdown } from "./FareBreakdown";
+import { RouteMap } from "./RouteMap";
 
 import { bookingSchema, type BookingSchemaType } from "@/schemas/booking-schema";
 import { calculateFare } from "@/lib/fare-calculator";
 import { calculateDistance, getCurrentLocation, reverseGeocode } from "@/lib/google-maps";
-import { supabase } from "@/integrations/supabase/client";
 import type { PlaceDetails, WeekDay, FareDetails } from "@/types/booking";
+
+const WHATSAPP_LINK = "https://wa.me/message/PWIMWJHRYGQRL1";
 
 export function BookingForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -65,6 +67,10 @@ export function BookingForm() {
   const pickupTime = watch("pickupTime");
   const selectedDays = watch("selectedDays");
   const pickupAddress = watch("pickupAddress");
+  const dropAddress = watch("dropAddress");
+
+  // Check if both locations are set for showing the map
+  const showRouteMap = pickupLat && pickupLng && dropLat && dropLng && pickupAddress && dropAddress;
 
   // Auto-detect user's location for pickup
   const detectCurrentLocation = useCallback(async () => {
@@ -163,8 +169,34 @@ export function BookingForm() {
     setValue("dropLng", place.lng);
   };
 
-  // Form submission
-  const onSubmit = async (data: BookingSchemaType) => {
+  // Build WhatsApp message with booking details
+  const buildWhatsAppMessage = (data: BookingSchemaType): string => {
+    const dayNames = data.selectedDays.map(d => d.charAt(0).toUpperCase() + d.slice(1)).join(", ");
+    const message = `🚗 *KYRA Ride Subscription Request*
+
+📋 *Customer Details:*
+Name: ${data.name}
+Phone: ${data.phone}
+
+📍 *Route:*
+Pickup: ${data.pickupAddress}
+Drop: ${data.dropAddress}
+Distance: ${distanceKm?.toFixed(1)} km
+
+⏰ *Schedule:*
+Pickup Time: ${data.pickupTime}
+Days: ${dayNames}
+
+💰 *Fare Estimate:*
+Per Ride: ₹${fareDetails?.perRideFare}
+Weekly Total: ₹${fareDetails?.totalWeeklyFare}
+${fareDetails?.isSurgePricing ? "(Surge pricing applied)" : ""}`;
+
+    return encodeURIComponent(message);
+  };
+
+  // Form submission - opens WhatsApp with booking details
+  const onSubmit = (data: BookingSchemaType) => {
     if (!fareDetails || !distanceKm) {
       toast.error("Please complete all fields to calculate fare");
       return;
@@ -173,45 +205,17 @@ export function BookingForm() {
     setIsSubmitting(true);
 
     try {
-      // Convert selectedDays to day numbers (1=Mon, 2=Tue, etc.)
-      const dayMap: Record<WeekDay, number> = {
-        monday: 1,
-        tuesday: 2,
-        wednesday: 3,
-        thursday: 4,
-        friday: 5,
-        saturday: 6,
-        sunday: 7,
-      };
-      const dayNumbers = data.selectedDays.map((d) => dayMap[d as WeekDay]);
+      const message = buildWhatsAppMessage(data);
+      const whatsappUrl = `${WHATSAPP_LINK}&text=${message}`;
 
-      const { error } = await supabase.from("ride_subscriptions").insert({
-        customer_name: data.name,
-        phone_number: data.phone,
-        pickup_address: data.pickupAddress,
-        pickup_place_id: data.pickupPlaceId,
-        pickup_lat: data.pickupLat,
-        pickup_lng: data.pickupLng,
-        drop_address: data.dropAddress,
-        drop_place_id: data.dropPlaceId,
-        drop_lat: data.dropLat,
-        drop_lng: data.dropLng,
-        distance_km: distanceKm,
-        pickup_time: data.pickupTime,
-        selected_days: dayNumbers,
-        is_surge_pricing: fareDetails.isSurgePricing,
-        per_ride_fare: fareDetails.perRideFare,
-        total_weekly_fare: fareDetails.totalWeeklyFare,
-        status: "pending",
-      });
-
-      if (error) throw error;
+      // Open WhatsApp in new tab
+      window.open(whatsappUrl, "_blank", "noopener,noreferrer");
 
       setIsSubmitted(true);
-      toast.success("Booking submitted successfully!");
+      toast.success("Redirecting to WhatsApp...");
     } catch (error) {
       console.error("Booking error:", error);
-      toast.error("Failed to submit booking. Please try again.");
+      toast.error("Failed to open WhatsApp. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
@@ -382,6 +386,21 @@ export function BookingForm() {
               </FormItem>
             )}
           />
+
+          {/* Route Map Preview */}
+          {showRouteMap && (
+            <div className="pt-2">
+              <h4 className="text-sm font-medium text-foreground mb-3">Route Preview</h4>
+              <RouteMap
+                pickupLat={pickupLat}
+                pickupLng={pickupLng}
+                dropLat={dropLat}
+                dropLng={dropLng}
+                pickupAddress={pickupAddress}
+                dropAddress={dropAddress}
+              />
+            </div>
+          )}
 
           <FormField
             control={form.control}
