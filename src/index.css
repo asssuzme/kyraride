@@ -9,33 +9,33 @@
 @layer base {
   :root {
     /* Core Kyra Colors - HSL Values - Deep Burgundy Theme */
-    --background: 351 55% 12%; /* Deep burgundy black */
-    --foreground: 32 35% 87%; /* Champagne beige #E8D8C4 */
+    --background: 351 55% 12%; /* Deep burgundy #561C24 */
+    --foreground: 32 40% 85%; /* Warm champagne beige #E8D8C4 */
 
     --card: 351 50% 10%; /* Darker burgundy for cards */
-    --card-foreground: 32 35% 87%;
+    --card-foreground: 32 40% 85%;
 
     --popover: 351 55% 8%;
-    --popover-foreground: 32 35% 87%;
+    --popover-foreground: 32 40% 85%;
 
-    --primary: 32 35% 87%; /* Champagne beige as primary */
+    --primary: 32 40% 85%; /* Champagne beige as primary */
     --primary-foreground: 351 55% 12%; /* Dark burgundy text on beige */
 
     --secondary: 351 45% 20%; /* Muted burgundy */
-    --secondary-foreground: 32 35% 87%;
+    --secondary-foreground: 32 40% 85%;
 
     --muted: 351 40% 15%;
-    --muted-foreground: 32 25% 60%;
+    --muted-foreground: 32 35% 65%;
 
-    --accent: 32 35% 87%; /* Champagne beige accent */
+    --accent: 32 40% 85%; /* Champagne beige accent */
     --accent-foreground: 351 55% 12%;
 
     --destructive: 0 84% 60%;
-    --destructive-foreground: 32 35% 87%;
+    --destructive-foreground: 32 40% 85%;
 
-    --border: 351 35% 20%;
+    --border: 32 30% 40%; /* Warmer beige border */
     --input: 351 40% 15%;
-    --ring: 32 35% 70%;
+    --ring: 32 40% 75%;
 
     --radius: 0.5rem;
 
